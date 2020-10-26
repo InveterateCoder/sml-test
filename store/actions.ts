@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import { Action, Student, Grade, Performance } from './types'
+import { Action, Student } from './types'
 import routes from '../shared/routes'
 
 export const SET_ERROR = 'set_error'
