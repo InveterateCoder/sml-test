@@ -12,7 +12,6 @@ const loadStudentsStoreAction = (students: Array<Student>): Action => ({
   type: LOAD_STUDENTS,
   payload: students
 })
-
 export const loadStudents = () => async (dispatch: Dispatch) => {
   try {
   } catch (err) {

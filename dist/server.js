@@ -344,7 +344,7 @@ module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test A
   \***************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
+/*! CommonJS bailout: module.exports is used directly at 35:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const path = __webpack_require__(/*! path */ "path")
@@ -352,6 +352,34 @@ const webpack = __webpack_require__(/*! webpack */ "webpack")
 const nodeExternals = __webpack_require__(/*! webpack-node-externals */ "webpack-node-externals")
 const { CleanWebpackPlugin } = __webpack_require__(/*! clean-webpack-plugin */ "clean-webpack-plugin")
 const copyWebpackPlugin = __webpack_require__(/*! copy-webpack-plugin */ "copy-webpack-plugin")
+
+function getModuleOption(client = false) {
+  return {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-typescript',
+              client ? '@babel/preset-env' : [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    node: 10
+                  }
+                }
+              ],
+              '@babel/preset-react'
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
 
 module.exports = env => {
   const NODE_ENV = env?.production ? 'production' : 'development'
@@ -362,15 +390,6 @@ module.exports = env => {
     mode: NODE_ENV,
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-    },
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader'
-        }
-      ]
     },
     devtool: NODE_ENV === 'production' ? undefined : 'source-map',
   }
@@ -398,6 +417,7 @@ module.exports = env => {
       path: path.resolve(__dirname, 'dist', 'public'),
       publicPath: '/'
     },
+    module: getModuleOption(true),
     plugins,
     optimization: {
       splitChunks: {
@@ -415,6 +435,7 @@ module.exports = env => {
       filename: 'server.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    module: getModuleOption(false),
     plugins: [
       new CleanWebpackPlugin(),
     ],

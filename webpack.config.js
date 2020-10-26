@@ -4,6 +4,34 @@ const nodeExternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 
+function getModuleOption(client = false) {
+  return {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-typescript',
+              client ? '@babel/preset-env' : [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    node: 10
+                  }
+                }
+              ],
+              '@babel/preset-react'
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
+
 module.exports = env => {
   const NODE_ENV = env?.production ? 'production' : 'development'
 
@@ -13,15 +41,6 @@ module.exports = env => {
     mode: NODE_ENV,
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-    },
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader'
-        }
-      ]
     },
     devtool: NODE_ENV === 'production' ? undefined : 'source-map',
   }
@@ -49,6 +68,7 @@ module.exports = env => {
       path: path.resolve(__dirname, 'dist', 'public'),
       publicPath: '/'
     },
+    module: getModuleOption(true),
     plugins,
     optimization: {
       splitChunks: {
@@ -66,6 +86,7 @@ module.exports = env => {
       filename: 'server.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    module: getModuleOption(false),
     plugins: [
       new CleanWebpackPlugin(),
     ],

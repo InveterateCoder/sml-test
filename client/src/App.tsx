@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { CssBaseline, makeStyles, Slide, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close'
-import { Store } from '../store/types'
+import { Store } from '../../store/types'
 import Students from './Students'
-import { setError } from '../store/actions'
+import { setError } from '../../store/actions'
 
 const useStyles = makeStyles(theme => ({
   error: {
