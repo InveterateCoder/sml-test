@@ -1,6 +1,12 @@
 import React from 'react'
-import { Container, makeStyles, Paper, Typography } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import {
+  Container, makeStyles, Paper, Typography,
+  List
+} from '@material-ui/core'
 import AppBar from './AppBar'
+import { Store } from '../../store/types'
+import Student from './Student'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,12 +20,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Students() {
   const classes = useStyles()
+  const students = useSelector((state: Store) => state.students)
   return (
     <Container maxWidth="sm" className={classes.container}>
       <Paper square className={classes.paper}>
         <Typography variant="h5" gutterBottom>
           Students
         </Typography>
+        <List>
+          {
+            students.map(student => (
+              <Student student={student} />
+            ))
+          }
+        </List>
         <div className={classes.pad}></div>
       </Paper>
       <AppBar />
