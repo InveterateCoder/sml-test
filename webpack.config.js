@@ -59,7 +59,7 @@ module.exports = env => {
   }
 
   const server = {
-    entry: './server/server.ts',
+    entry: NODE_ENV === 'production' ? './server/server.ts' : './server/server.dev.ts',
     target: 'node',
     externals: [nodeExternals()],
     output: {

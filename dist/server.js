@@ -1,5 +1,4 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./server/controllers/getStudentsController.ts":
@@ -12,6 +11,7 @@
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
@@ -50,6 +50,7 @@ async function getStudentsController(req, res) {
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
@@ -76,6 +77,7 @@ async function renderController(req, res) {
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
@@ -101,6 +103,7 @@ api.get('/students', _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
@@ -152,16 +155,53 @@ const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
 
 /***/ }),
 
-/***/ "./server/server.ts":
-/*!**************************!*\
-  !*** ./server/server.ts ***!
-  \**************************/
+/***/ "./server/server.dev.ts":
+/*!******************************!*\
+  !*** ./server/server.dev.ts ***!
+  \******************************/
 /*! namespace exports */
 /*! exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _startServer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startServer */ "./server/startServer.ts");
+__webpack_require__(/*! source-map-support */ "source-map-support").install();
+
+const config = __webpack_require__(/*! ../webpack.config.js */ "./webpack.config.js")()[1];
+
+const app = __webpack_require__(/*! express */ "express")();
+
+const wpDevMiddleware = __webpack_require__(/*! webpack-dev-middleware */ "webpack-dev-middleware");
+
+const wpHotMiddleware = __webpack_require__(/*! webpack-hot-middleware */ "webpack-hot-middleware");
+
+const webpack = __webpack_require__(/*! webpack */ "webpack");
+
+
+const compiler = webpack(config);
+app.use(wpDevMiddleware(compiler));
+app.use(wpHotMiddleware(compiler));
+(0,_startServer__WEBPACK_IMPORTED_MODULE_0__.default)(app);
+
+/***/ }),
+
+/***/ "./server/startServer.ts":
+/*!*******************************!*\
+  !*** ./server/startServer.ts ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! path */ "path");
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dotenv */ "dotenv");
@@ -190,8 +230,8 @@ dotenv_expand__WEBPACK_IMPORTED_MODULE_2___default()(dotenv__WEBPACK_IMPORTED_MO
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/fake_school';
 const port = process.env.PORT || 8000;
 
-async function startServer() {
-  const app = express__WEBPACK_IMPORTED_MODULE_3___default()();
+async function startServer(application = express__WEBPACK_IMPORTED_MODULE_3___default()()) {
+  const app = application;
   app.set('view engine', 'ejs');
   let server = null;
 
@@ -214,7 +254,7 @@ async function startServer() {
   }
 }
 
-startServer();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startServer);
 
 /***/ }),
 
@@ -293,7 +333,123 @@ startServer();
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns students.\",\"description\":\"Returns a list of all students in the db.\",\"responses\":{\"200\":{\"description\":\"A JSON array of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"middleName\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"grade\":{\"type\":\"integer\"},\"performance\":{\"type\":\"integer\"}}}}}}}}}}}}");
+
+/***/ }),
+
+/***/ "./webpack.config.js":
+/*!***************************!*\
+  !*** ./webpack.config.js ***!
+  \***************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__ */
+/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const path = __webpack_require__(/*! path */ "path")
+const webpack = __webpack_require__(/*! webpack */ "webpack")
+const nodeExternals = __webpack_require__(/*! webpack-node-externals */ "webpack-node-externals")
+const { CleanWebpackPlugin } = __webpack_require__(/*! clean-webpack-plugin */ "clean-webpack-plugin")
+const copyWebpackPlugin = __webpack_require__(/*! copy-webpack-plugin */ "copy-webpack-plugin")
+
+module.exports = env => {
+  const NODE_ENV = env?.production ? 'production' : 'development'
+
+  console.log(`compiling in ${NODE_ENV} mode...`)
+
+  const base = {
+    mode: NODE_ENV,
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader'
+        }
+      ]
+    },
+    devtool: NODE_ENV === 'production' ? undefined : 'source-map',
+  }
+
+  const entry = {
+    app: ['./client/src/index.tsx']
+  }
+  const plugins = [
+    new copyWebpackPlugin({
+      patterns: [
+        { from: './client/public', to: '' }
+      ]
+    })
+  ]
+
+  if (NODE_ENV === 'development') {
+    entry.app.push('webpack-hot-middleware/client')
+    plugins.unshift(new webpack.HotModuleReplacementPlugin())
+  }
+
+  const client = {
+    entry,
+    output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist', 'public'),
+      publicPath: '/'
+    },
+    plugins,
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        name: 'vendor',
+      },
+    },
+  }
+
+  const server = {
+    entry: NODE_ENV === 'production' ? './server/server.ts' : './server/server.dev.ts',
+    target: 'node',
+    externals: [nodeExternals()],
+    output: {
+      filename: 'server.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+    plugins: [
+      new CleanWebpackPlugin(),
+    ],
+  }
+
+  return [{ ...base, ...server }, { ...base, ...client }]
+}
+
+/***/ }),
+
+/***/ "clean-webpack-plugin":
+/*!***************************************!*\
+  !*** external "clean-webpack-plugin" ***!
+  \***************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("clean-webpack-plugin");;
+
+/***/ }),
+
+/***/ "copy-webpack-plugin":
+/*!**************************************!*\
+  !*** external "copy-webpack-plugin" ***!
+  \**************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("copy-webpack-plugin");;
 
 /***/ }),
 
@@ -307,6 +463,7 @@ module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test A
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("dotenv");;
 
 /***/ }),
@@ -321,6 +478,7 @@ module.exports = require("dotenv");;
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("dotenv-expand");;
 
 /***/ }),
@@ -335,6 +493,7 @@ module.exports = require("dotenv-expand");;
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("express");;
 
 /***/ }),
@@ -349,6 +508,7 @@ module.exports = require("express");;
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("mongoose");;
 
 /***/ }),
@@ -363,7 +523,22 @@ module.exports = require("mongoose");;
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("path");;
+
+/***/ }),
+
+/***/ "source-map-support":
+/*!*************************************!*\
+  !*** external "source-map-support" ***!
+  \*************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("source-map-support");;
 
 /***/ }),
 
@@ -377,7 +552,64 @@ module.exports = require("path");;
 /*! runtime requirements: module */
 /***/ ((module) => {
 
+"use strict";
 module.exports = require("swagger-ui-express");;
+
+/***/ }),
+
+/***/ "webpack":
+/*!**************************!*\
+  !*** external "webpack" ***!
+  \**************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("webpack");;
+
+/***/ }),
+
+/***/ "webpack-dev-middleware":
+/*!*****************************************!*\
+  !*** external "webpack-dev-middleware" ***!
+  \*****************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("webpack-dev-middleware");;
+
+/***/ }),
+
+/***/ "webpack-hot-middleware":
+/*!*****************************************!*\
+  !*** external "webpack-hot-middleware" ***!
+  \*****************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("webpack-hot-middleware");;
+
+/***/ }),
+
+/***/ "webpack-node-externals":
+/*!*****************************************!*\
+  !*** external "webpack-node-externals" ***!
+  \*****************************************/
+/*! dynamic exports */
+/*! exports [maybe provided (runtime-defined)] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("webpack-node-externals");;
 
 /***/ })
 
@@ -450,7 +682,7 @@ module.exports = require("swagger-ui-express");;
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
-/******/ 	__webpack_require__("./server/server.ts");
+/******/ 	__webpack_require__("./server/server.dev.ts");
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
