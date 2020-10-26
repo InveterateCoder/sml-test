@@ -15,10 +15,11 @@ const port = process.env.PORT || 8000
 
 async function startServer() {
   const app = express()
+  app.set('view engine', 'ejs')
   let server = null
   try {
     app
-      .use(express.static(path.resolve(__dirname, '..', '..', 'client', 'build')))
+      .use(express.static(path.resolve(__dirname, 'public')))
       .use(express.json())
       .use(express.urlencoded({ extended: true }))
       .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
