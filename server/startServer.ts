@@ -23,7 +23,7 @@ async function startServer(application: Express = express()): Promise<void> {
       .use(express.json())
       .use(express.urlencoded({ extended: true }))
       .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-      .use('/api', apiRoutes)
+      .use(apiRoutes)
 
     app.get('*', renderController)
 

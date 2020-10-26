@@ -16,20 +16,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/StudentModel */ "./server/models/StudentModel.ts");
+/* harmony import */ var _models_getStudents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/getStudents */ "./server/models/getStudents.ts");
 
 
 async function getStudentsController(req, res) {
   try {
-    const students = (await _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.find({}).exec()).map(doc => {
-      const obj = doc.toObject();
-      return {
-        id: obj._id,
-        ...obj,
-        _id: undefined,
-        __v: undefined
-      };
-    });
+    const students = await (0,_models_getStudents__WEBPACK_IMPORTED_MODULE_0__.default)();
     res.json(students);
   } catch (err) {
     res.status(500).send(err.message);
@@ -84,11 +76,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../controllers/getStudentsController */ "./server/controllers/getStudentsController.ts");
+/* harmony import */ var _shared_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/routes */ "./shared/routes.ts");
+/* harmony import */ var _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/getStudentsController */ "./server/controllers/getStudentsController.ts");
+
 
 
 const api = (0,express__WEBPACK_IMPORTED_MODULE_0__.Router)();
-api.get('/students', _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_1__.default);
+api.get(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__.default);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (api);
 
 /***/ }),
@@ -152,6 +146,41 @@ const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mongoose__WEBPACK_IMPORTED_MODULE_0__.model)('Student', StudentSchema));
+
+/***/ }),
+
+/***/ "./server/models/getStudents.ts":
+/*!**************************************!*\
+  !*** ./server/models/getStudents.ts ***!
+  \**************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentModel */ "./server/models/StudentModel.ts");
+
+
+async function getStudents() {
+  const students = (await _StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.find({}).exec()).map(doc => {
+    const obj = doc.toObject();
+    return {
+      id: obj._id,
+      ...obj,
+      _id: undefined,
+      __v: undefined
+    };
+  });
+  return students;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getStudents);
 
 /***/ }),
 
@@ -238,7 +267,7 @@ async function startServer(application = express__WEBPACK_IMPORTED_MODULE_3___de
   try {
     app.use(express__WEBPACK_IMPORTED_MODULE_3___default().static(path__WEBPACK_IMPORTED_MODULE_0___default().resolve(__dirname, 'public'))).use(express__WEBPACK_IMPORTED_MODULE_3___default().json()).use(express__WEBPACK_IMPORTED_MODULE_3___default().urlencoded({
       extended: true
-    })).use('/api-docs', (swagger_ui_express__WEBPACK_IMPORTED_MODULE_5___default().serve), swagger_ui_express__WEBPACK_IMPORTED_MODULE_5___default().setup(_swagger_json__WEBPACK_IMPORTED_MODULE_6__)).use('/api', _infrastructure_apiRoutes__WEBPACK_IMPORTED_MODULE_7__.default);
+    })).use('/api-docs', (swagger_ui_express__WEBPACK_IMPORTED_MODULE_5___default().serve), swagger_ui_express__WEBPACK_IMPORTED_MODULE_5___default().setup(_swagger_json__WEBPACK_IMPORTED_MODULE_6__)).use(_infrastructure_apiRoutes__WEBPACK_IMPORTED_MODULE_7__.default);
     app.get('*', _controllers_renderController__WEBPACK_IMPORTED_MODULE_8__.default);
     await (0,mongoose__WEBPACK_IMPORTED_MODULE_4__.connect)(DB_URL, {
       useNewUrlParser: true,
@@ -255,6 +284,28 @@ async function startServer(application = express__WEBPACK_IMPORTED_MODULE_3___de
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startServer);
+
+/***/ }),
+
+/***/ "./shared/routes.ts":
+/*!**************************!*\
+  !*** ./shared/routes.ts ***!
+  \**************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const base = '/api';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  students: `${base}/students`
+});
 
 /***/ }),
 
@@ -344,7 +395,7 @@ module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test A
   \***************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 35:0-14 */
+/*! CommonJS bailout: module.exports is used directly at 39:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const path = __webpack_require__(/*! path */ "path")
@@ -364,13 +415,17 @@ function getModuleOption(client = false) {
           options: {
             presets: [
               '@babel/preset-typescript',
-              client ? '@babel/preset-env' : [
+              [
                 '@babel/preset-env',
-                {
+                client ? {
                   targets: {
-                    node: 10
+                    chrome: 65,
                   }
-                }
+                } : {
+                    targets: {
+                      node: 10
+                    }
+                  }
               ],
               '@babel/preset-react'
             ]

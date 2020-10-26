@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux'
 import { Action, Student, Grade, Performance } from './types'
+import routes from '../shared/routes'
 
 export const SET_ERROR = 'set_error'
 export const setError = (err: { message: string, open: boolean }): Action => ({
@@ -14,20 +15,14 @@ const loadStudentsStoreAction = (students: Array<Student>): Action => ({
 })
 export const loadStudents = () => async (dispatch: Dispatch) => {
   try {
-  } catch (err) {
-
-  }
-  const students: Array<Student> = [
-    {
-      id: '',
-      avatar: '',
-      firstName: '',
-      lastName: '',
-      middleName: '',
-      grade: Grade.First,
-      dob: new Date(),
-      performance: Performance.Отл
+    const res = await fetch(routes.students, {
+      method: 'GET'
+    })
+    if (!res.ok) {
+      throw new Error(`Server responded with "${res.statusText}"`)
     }
-  ]
-  dispatch(loadStudentsStoreAction(students))
+    dispatch(loadStudentsStoreAction(await res.json()))
+  } catch (err) {
+    dispatch(setError({message: err.message, open: true}))
+  }
 }

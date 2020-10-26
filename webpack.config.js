@@ -15,13 +15,17 @@ function getModuleOption(client = false) {
           options: {
             presets: [
               '@babel/preset-typescript',
-              client ? '@babel/preset-env' : [
+              [
                 '@babel/preset-env',
-                {
+                client ? {
                   targets: {
-                    node: 10
+                    chrome: 65,
                   }
-                }
+                } : {
+                    targets: {
+                      node: 10
+                    }
+                  }
               ],
               '@babel/preset-react'
             ]
