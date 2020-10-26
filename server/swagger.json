@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Test App",
+    "description": "Test app for Soft Media Lab.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Arthur Grigoryan",
+      "url": "https://inveteratecoder.github.io/",
+      "email": "inveterate.coder@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "api gateway"
+    }
+  ],
+  "paths": {
+    "/students": {
+      "get": {
+        "summary": "Returns students.",
+        "description": "Returns a list of all students in the db.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of student objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "middleName": {
+                        "type": "string"
+                      },
+                      "avatar": {
+                        "type": "string"
+                      },
+                      "dob": {
+                        "type": "string"
+                      },
+                      "grade": {
+                        "type": "integer"
+                      },
+                      "performance": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
