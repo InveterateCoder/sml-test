@@ -23,7 +23,7 @@ module.exports = env => {
         }
       ]
     },
-    devtool: NODE_ENV === 'production' ? 'cheap-source-map' : 'source-map',
+    devtool: NODE_ENV === 'production' ? undefined : 'source-map',
   }
 
   const entry = {
@@ -50,6 +50,12 @@ module.exports = env => {
       publicPath: '/'
     },
     plugins,
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        name: 'vendor',
+      },
+    },
   }
 
   const server = {
