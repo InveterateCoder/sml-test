@@ -1,7 +1,7 @@
 import { Store } from './types'
 
 const initialState: Store = {
-  students: [],
+  school: [],
   error: {
     message: '',
     open: false

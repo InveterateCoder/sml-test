@@ -10,9 +10,7 @@ async function getStudents() {
           students: {
             $push: {
               id: '$_id',
-              firstName: '$firstName',
-              lastName: '$lastName',
-              middleName: '$middleName',
+              name: '$name',
               avatar: '$avatar',
               dob: '$dob',
               performance: '$performance'

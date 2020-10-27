@@ -118,9 +118,7 @@ async function getStudents() {
       students: {
         $push: {
           id: '$_id',
-          firstName: '$firstName',
-          lastName: '$lastName',
-          middleName: '$middleName',
+          name: '$name',
           avatar: '$avatar',
           dob: '$dob',
           performance: '$performance'
@@ -165,25 +163,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
   avatar: String,
-  firstName: {
+  name: {
     type: String,
-    minlength: [2, "Minimum first name's length is 2"],
-    maxlength: [26, "Maximum first name's length is 26"],
-    required: [true, "Must provide the student's first name"],
-    index: true
-  },
-  lastName: {
-    type: String,
-    minlength: [2, "Minimum last name's length is 2"],
-    maxlength: [26, "Maximum last name's length is 26"],
-    required: [true, "Must provide the student's last name"],
-    index: true
-  },
-  middleName: {
-    type: String,
-    minlength: [2, "Minimum middle name's length is 2"],
-    maxlength: [26, "Maximum middle name's length is 26"],
-    required: [true, "Must provide the student's middle name"],
+    required: [true, "Must provide the student's full name"],
     index: true
   },
   dob: {
@@ -372,16 +354,10 @@ const base = '/api';
 /*!                           export dob [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             other exports [not provided] [no usage info] */
-/*!                           export firstName [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                             other exports [not provided] [no usage info] */
 /*!                           export id [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             other exports [not provided] [no usage info] */
-/*!                           export lastName [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                             other exports [not provided] [no usage info] */
-/*!                           export middleName [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                           export name [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                             other exports [not provided] [no usage info] */
 /*!                           export performance [provided] [no usage info] [missing usage info prevents renaming] */
@@ -417,7 +393,7 @@ const base = '/api';
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a list of grades and all students in the grade.\",\"responses\":{\"200\":{\"description\":\"A JSON array of grades including arrays of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"middleName\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}}}}}}}");
+module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a list of grades and all students in the grade.\",\"responses\":{\"200\":{\"description\":\"A JSON array of grades including arrays of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}}}}}}}");
 
 /***/ }),
 

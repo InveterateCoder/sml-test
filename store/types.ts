@@ -13,16 +13,18 @@ export enum Performance {
 export interface Student {
   id: string,
   avatar: string,
-  firstName: string,
-  lastName: string,
-  middleName: string,
+  name: string,
   dob: Date,
-  grade: Grade,
   performance: Performance
 }
 
-export interface Store {
+export interface GradeEntity {
   students: Array<Student>,
+  grade: Grade
+}
+
+export interface Store {
+  school: Array<GradeEntity>,
   error: {
     message: string,
     open: boolean

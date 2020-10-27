@@ -2,25 +2,9 @@ import { Schema, model } from 'mongoose'
 
 const StudentSchema = new Schema({
   avatar: String,
-  firstName: {
+  name: {
     type: String,
-    minlength: [2, "Minimum first name's length is 2"],
-    maxlength: [26, "Maximum first name's length is 26"],
-    required: [true, "Must provide the student's first name"],
-    index: true
-  },
-  lastName: {
-    type: String,
-    minlength: [2, "Minimum last name's length is 2"],
-    maxlength: [26, "Maximum last name's length is 26"],
-    required: [true, "Must provide the student's last name"],
-    index: true
-  },
-  middleName: {
-    type: String,
-    minlength: [2, "Minimum middle name's length is 2"],
-    maxlength: [26, "Maximum middle name's length is 26"],
-    required: [true, "Must provide the student's middle name"],
+    required: [true, "Must provide the student's full name"],
     index: true
   },
   dob: {

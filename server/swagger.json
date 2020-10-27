@@ -39,13 +39,7 @@
                             "id": {
                               "type": "string"
                             },
-                            "firstName": {
-                              "type": "string"
-                            },
-                            "lastName": {
-                              "type": "string"
-                            },
-                            "middleName": {
+                            "name": {
                               "type": "string"
                             },
                             "avatar": {

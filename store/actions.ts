@@ -16,7 +16,7 @@ const loadStudentsStoreAction = (students: Array<Student>): Action => ({
 export const loadStudents = () => async (dispatch: Dispatch) => {
   try {
     const res = await fetch(routes.students, {
-      method: 'GET'
+      method: 'GET',
     })
     if (!res.ok) {
       throw new Error(`Server responded with "${res.statusText}"`)
