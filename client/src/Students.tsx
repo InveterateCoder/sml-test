@@ -30,7 +30,7 @@ function Students() {
         <List>
           {
             students.map(student => (
-              <Student student={student} />
+              <Student key={student.id} student={student} />
             ))
           }
         </List>

@@ -19,11 +19,11 @@
   "paths": {
     "/students": {
       "get": {
-        "summary": "Returns students.",
-        "description": "Returns a list of all students in the db.",
+        "summary": "Returns grades and students.",
+        "description": "Returns a list of grades and all students in the grade.",
         "responses": {
           "200": {
-            "description": "A JSON array of student objects",
+            "description": "A JSON array of grades including arrays of student objects",
             "content": {
               "application/json": {
                 "schema": {
@@ -31,28 +31,36 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "firstName": {
-                        "type": "string"
-                      },
-                      "lastName": {
-                        "type": "string"
-                      },
-                      "middleName": {
-                        "type": "string"
-                      },
-                      "avatar": {
-                        "type": "string"
-                      },
-                      "dob": {
-                        "type": "string"
+                      "students": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "middleName": {
+                              "type": "string"
+                            },
+                            "avatar": {
+                              "type": "string"
+                            },
+                            "dob": {
+                              "type": "string"
+                            },
+                            "performance": {
+                              "type": "integer"
+                            }
+                          }
+                        }
                       },
                       "grade": {
-                        "type": "integer"
-                      },
-                      "performance": {
                         "type": "integer"
                       }
                     }

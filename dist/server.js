@@ -16,12 +16,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _models_getStudents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/getStudents */ "./server/models/getStudents.ts");
+/* harmony import */ var _infrastructure_getStudents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../infrastructure/getStudents */ "./server/infrastructure/getStudents.ts");
 
 
 async function getStudentsController(req, res) {
   try {
-    const students = await (0,_models_getStudents__WEBPACK_IMPORTED_MODULE_0__.default)();
+    const students = await (0,_infrastructure_getStudents__WEBPACK_IMPORTED_MODULE_0__.default)();
     res.json(students);
   } catch (err) {
     res.status(500).send(err.message);
@@ -87,6 +87,64 @@ api.get(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controlle
 
 /***/ }),
 
+/***/ "./server/infrastructure/getStudents.ts":
+/*!**********************************************!*\
+  !*** ./server/infrastructure/getStudents.ts ***!
+  \**********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/StudentModel */ "./server/models/StudentModel.ts");
+
+
+async function getStudents() {
+  const students = await _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.aggregate([{
+    $sort: {
+      firstName: 1,
+      lastName: 1,
+      middleName: 1
+    }
+  }, {
+    $group: {
+      _id: '$grade',
+      students: {
+        $push: {
+          id: '$_id',
+          firstName: '$firstName',
+          lastName: '$lastName',
+          middleName: '$middleName',
+          avatar: '$avatar',
+          dob: '$dob',
+          performance: '$performance'
+        }
+      }
+    }
+  }, {
+    $sort: {
+      _id: 1
+    }
+  }, {
+    $project: {
+      _id: 0,
+      students: 1,
+      grade: "$_id"
+    }
+  }]).exec();
+  return students;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getStudents);
+
+/***/ }),
+
 /***/ "./server/models/StudentModel.ts":
 /*!***************************************!*\
   !*** ./server/models/StudentModel.ts ***!
@@ -136,7 +194,8 @@ const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
     type: Number,
     min: [1, "Wrong grade number"],
     max: [5, "Wrong grade number"],
-    required: [true, "Must provide the student's class"]
+    required: [true, "Must provide the student's class"],
+    index: true
   },
   performance: {
     type: Number,
@@ -146,41 +205,6 @@ const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mongoose__WEBPACK_IMPORTED_MODULE_0__.model)('Student', StudentSchema));
-
-/***/ }),
-
-/***/ "./server/models/getStudents.ts":
-/*!**************************************!*\
-  !*** ./server/models/getStudents.ts ***!
-  \**************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentModel */ "./server/models/StudentModel.ts");
-
-
-async function getStudents() {
-  const students = (await _StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.find({}).exec()).map(doc => {
-    const obj = doc.toObject();
-    return {
-      id: obj._id,
-      ...obj,
-      _id: undefined,
-      __v: undefined
-    };
-  });
-  return students;
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getStudents);
 
 /***/ }),
 
@@ -336,28 +360,36 @@ const base = '/api';
 /*!               export schema [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                 export items [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                   export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                     export avatar [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
-/*!                     export dob [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
-/*!                     export firstName [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
 /*!                     export grade [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                       other exports [not provided] [no usage info] */
-/*!                     export id [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
-/*!                     export lastName [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
-/*!                     export middleName [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                       other exports [not provided] [no usage info] */
-/*!                     export performance [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export students [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                       export items [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                         export properties [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                           export avatar [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export dob [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export firstName [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export id [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export lastName [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export middleName [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           export performance [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                             other exports [not provided] [no usage info] */
+/*!                           other exports [not provided] [no usage info] */
+/*!                         export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                         other exports [not provided] [no usage info] */
 /*!                       export type [provided] [no usage info] [missing usage info prevents renaming] */
 /*!                       other exports [not provided] [no usage info] */
 /*!                     other exports [not provided] [no usage info] */
@@ -385,7 +417,7 @@ const base = '/api';
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns students.\",\"description\":\"Returns a list of all students in the db.\",\"responses\":{\"200\":{\"description\":\"A JSON array of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"middleName\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"grade\":{\"type\":\"integer\"},\"performance\":{\"type\":\"integer\"}}}}}}}}}}}}");
+module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a list of grades and all students in the grade.\",\"responses\":{\"200\":{\"description\":\"A JSON array of grades including arrays of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"middleName\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}}}}}}}");
 
 /***/ }),
 

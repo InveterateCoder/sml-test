@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import getStudents from '../models/getStudents'
+import getStudents from '../infrastructure/getStudents'
 
 async function getStudentsController(req: Request, res: Response): Promise<void> {
   try {
