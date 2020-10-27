@@ -50,7 +50,6 @@ const students = [
   },
   {
     name: 'Cierra Vega Cantrell',
-    avatar: '',
     dob: new Date('2007-5-28'),
     grade: 4,
     performance: 3

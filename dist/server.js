@@ -160,6 +160,7 @@ async function getStudents() {
           name: '$name',
           avatar: '$avatar',
           dob: '$dob',
+          grade: '$grade',
           performance: '$performance'
         }
       }

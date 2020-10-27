@@ -15,6 +15,7 @@ export interface Student {
   avatar: string,
   name: string,
   dob: Date,
+  grade: Grade,
   performance: Performance
 }
 

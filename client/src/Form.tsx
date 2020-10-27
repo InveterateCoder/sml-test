@@ -12,22 +12,22 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Form() {
+function Form({ name, dob, grade, performance, onChange }: {
+  name: string | undefined | null,
+  dob: string | undefined | null,
+  grade: number | undefined | null,
+  performance: number | undefined | null,
+  onChange: any
+}) {
   const classes = useStyles()
-  const [grade, setGrade] = useState(1)
-  const [performance, setPerformance] = useState(3)
-  const onGradChange = (ev: BaseSyntheticEvent) => {
-    setGrade(ev.target.value)
-  }
-  const onPerformanceChange = (ev: BaseSyntheticEvent) => {
-    setPerformance(ev.target.value)
-  }
-
   return (
     <div className={classes.root}>
       <TextField
         fullWidth
         label="Name"
+        name="name"
+        value={name}
+        onChange={onChange}
       />
       <TextField
         fullWidth
@@ -36,13 +36,17 @@ function Form() {
         InputLabelProps={{
           shrink: true,
         }}
+        name="dob"
+        value={dob}
+        onChange={onChange}
       />
       <FormControl fullWidth>
         <InputLabel>Grade</InputLabel>
         <Select
           fullWidth
-          onChange={onGradChange}
           value={grade}
+          name="grade"
+          onChange={onChange}
         >
           {Object.keys(Grade).map(k => Number(k)).filter(k => k).map(n => (
             <MenuItem key={n} value={n}>{Grade[n]}</MenuItem>
@@ -53,8 +57,9 @@ function Form() {
         <InputLabel>Performance</InputLabel>
         <Select
           fullWidth
-          onChange={onPerformanceChange}
           value={performance}
+          name="performance"
+          onChange={onChange}
         >
           {Object.keys(Performance).map(k => Number(k)).filter(k => k).map(n => (
             <MenuItem key={n} value={n}>{Performance[n]}</MenuItem>
