@@ -7,6 +7,7 @@ import {
 import AppBar from './AppBar'
 import { Store } from '../../store/types'
 import Student from './Student'
+import EditModal from './EditModal'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -49,6 +50,7 @@ function Students() {
         <div className={classes.pad}></div>
       </Paper>
       <AppBar />
+      <EditModal />
     </Container>
   )
 }

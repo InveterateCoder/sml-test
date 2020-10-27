@@ -1,10 +1,19 @@
 import React, { BaseSyntheticEvent, useState } from 'react'
 import {
-  TextField, Select, MenuItem, FormControl, InputLabel
+  TextField, Select, MenuItem, FormControl, InputLabel, makeStyles
 } from '@material-ui/core'
 import { Performance, Grade } from '../../store/types'
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: '1rem 0'
+    }
+  }
+}))
+
 function Form() {
+  const classes = useStyles()
   const [grade, setGrade] = useState(1)
   const [performance, setPerformance] = useState(3)
   const onGradChange = (ev: BaseSyntheticEvent) => {
@@ -15,7 +24,7 @@ function Form() {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <TextField
         fullWidth
         label="Name"

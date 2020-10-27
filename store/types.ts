@@ -23,12 +23,18 @@ export interface GradeEntity {
   grade: Grade
 }
 
+export interface Edit {
+  open: boolean,
+  student: Student | null
+}
+
 export interface Store {
   school: Array<GradeEntity>,
   error: {
     message: string,
     open: boolean
-  }
+  },
+  edit: Edit
 }
 
 export interface Action {

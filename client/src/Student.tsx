@@ -7,7 +7,7 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import { Student as StudentType } from '../../store/types'
 import { Performance } from '../../store/types'
-import { deleteStudent } from '../../store/actions'
+import { deleteStudent, openEdit } from '../../store/actions'
 
 function Student({ student }: { student: StudentType }) {
   const dispatch = useDispatch()
@@ -35,6 +35,7 @@ function Student({ student }: { student: StudentType }) {
         <IconButton
           edge="end"
           color="primary"
+          onClick={() => dispatch(openEdit(student))}
         >
           <EditIcon />
         </IconButton>

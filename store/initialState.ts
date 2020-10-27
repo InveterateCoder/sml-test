@@ -5,6 +5,10 @@ const initialState: Store = {
   error: {
     message: '',
     open: false
+  },
+  edit: {
+    open: false,
+    student: null
   }
 }
 

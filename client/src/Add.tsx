@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@material-ui/core'
 import Form from './Form'
 
@@ -10,8 +11,14 @@ function Add() {
       <Form />
       <br />
       <div style={{ textAlign: 'center' }}>
-        <ButtonGroup variant="contained" color="primary">
-          <Button style={{ width: 90 }}>Cancel</Button>
+        <ButtonGroup variant="outlined" color="primary">
+          <Button
+            style={{ width: 90 }}
+            component={Link}
+            to="/students"
+          >
+            Cancel
+          </Button>
           <Button style={{ width: 90 }}>Save</Button>
         </ButtonGroup>
       </div>

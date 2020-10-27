@@ -47,3 +47,15 @@ export const deleteStudent = (id: string) => async (dispatch: Dispatch) => {
     dispatch(setError({ message: err.message, open: true }))
   }
 }
+
+export const OPEN_EDIT = 'open_edit'
+export const openEdit = (student: Student): Action => ({
+  type: OPEN_EDIT,
+  payload: student
+})
+
+export const CLOSE_EDIT = 'close_edit'
+export const closeEdit = (): Action => ({
+  type: CLOSE_EDIT,
+  payload: null
+})
