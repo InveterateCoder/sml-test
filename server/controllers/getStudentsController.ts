@@ -6,7 +6,7 @@ async function getStudentsController(req: Request, res: Response): Promise<void>
     const students = await getStudents()
     res.json(students)
   } catch (err) {
-    res.status(500).send(err.message)
+    res.status(500).end()
   }
 }
 

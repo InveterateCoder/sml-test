@@ -20,10 +20,13 @@
     "/students": {
       "get": {
         "summary": "Returns grades and students.",
-        "description": "Returns a list of grades and all students in the grade.",
+        "description": "Returns a sorted list of grades with sorted by names lists of students.",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
-            "description": "A JSON array of grades including arrays of student objects",
+            "description": "Success. Returns a JSON array of grades including arrays of student objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -62,6 +65,160 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Failure. Returns empty body."
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a new student.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Student",
+            "description": "The student with the specified id will be created.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "dob": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "performance": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 5
+                }
+              },
+              "required": [
+                "name",
+                "dob",
+                "performance"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns a JSON object of the newly created student.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "performance": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failure. Returns empty body."
+          }
+        }
+      },
+      "put": {
+        "summary": "Edits a student.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Student",
+            "description": "The student with the specified id will be edited.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 24,
+                  "maxLength": 24
+                },
+                "name": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "dob": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "performance": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 5
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "dob",
+                "performance"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns empty body."
+          },
+          "500": {
+            "description": "Failure. Returns empty body."
+          }
+        }
+      }
+    },
+    "/students/{id}": {
+      "delete": {
+        "summary": "Deletes a student.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the student to delete."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns empty body."
+          },
+          "500": {
+            "description": "Failure. Returns empty body."
           }
         }
       }

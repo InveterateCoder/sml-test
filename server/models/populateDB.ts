@@ -9,7 +9,7 @@ const students = [
   {
     name: 'Erick Vitagliano Reams',
     avatar: 'https://material-ui.com/static/images/avatar/1.jpg',
-    dob: new Date('2004-5-5'),
+    dob: new Date('2004-5-20'),
     grade: 1,
     performance: 4
   },
@@ -30,7 +30,7 @@ const students = [
   {
     name: 'Diana Poovey Studebaker',
     avatar: 'https://material-ui.com/static/images/avatar/4.jpg',
-    dob: new Date('2006-3-3'),
+    dob: new Date('2006-3-17'),
     grade: 3,
     performance: 4
   },
@@ -47,6 +47,13 @@ const students = [
     dob: new Date('2007-1-9'),
     grade: 4,
     performance: 5
+  },
+  {
+    name: 'Cierra Vega Cantrell',
+    avatar: '',
+    dob: new Date('2007-5-28'),
+    grade: 4,
+    performance: 3
   },
 ]
 

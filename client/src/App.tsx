@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { CssBaseline, makeStyles, Slide, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close'
 import { Store } from '../../store/types'
 import Students from './Students'
-import { setError } from '../../store/actions'
+import Add from './Add'
+import { setError, loadStudents } from '../../store/actions'
 
 const useStyles = makeStyles(theme => ({
   error: {
@@ -20,11 +21,16 @@ function App() {
   const error = useSelector((state: Store) => state.error)
   const dispatch = useDispatch()
   const classes = useStyles()
+
+  useEffect(() => {
+    dispatch(loadStudents())
+  }, [])
   return (
     <>
       <CssBaseline />
       <Switch>
         <Route path="/students" exact component={Students} />
+        <Route path="/add" exact component={Add} />
         <Redirect to="/students" />
       </Switch>
       <Snackbar

@@ -1,6 +1,42 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./server/controllers/deleteStudentController.ts":
+/*!*******************************************************!*\
+  !*** ./server/controllers/deleteStudentController.ts ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/StudentModel */ "./server/models/StudentModel.ts");
+
+
+async function deleteStudentController(req, res) {
+  try {
+    const {
+      id
+    } = req.params;
+    await _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.deleteOne({
+      _id: id
+    });
+    res.end();
+  } catch (err) {
+    res.status(500).end();
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (deleteStudentController);
+
+/***/ }),
+
 /***/ "./server/controllers/getStudentsController.ts":
 /*!*****************************************************!*\
   !*** ./server/controllers/getStudentsController.ts ***!
@@ -24,7 +60,7 @@ async function getStudentsController(req, res) {
     const students = await (0,_infrastructure_getStudents__WEBPACK_IMPORTED_MODULE_0__.default)();
     res.json(students);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).end();
   }
 }
 
@@ -78,11 +114,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _shared_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/routes */ "./shared/routes.ts");
 /* harmony import */ var _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/getStudentsController */ "./server/controllers/getStudentsController.ts");
+/* harmony import */ var _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/deleteStudentController */ "./server/controllers/deleteStudentController.ts");
+
 
 
 
 const api = (0,express__WEBPACK_IMPORTED_MODULE_0__.Router)();
 api.get(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__.default);
+api.delete(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.delete, _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_3__.default);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (api);
 
 /***/ }),
@@ -310,7 +349,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const base = '/api';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  students: `${base}/students`
+  students: `${base}/students`,
+  edit: `${base}/students`,
+  delete: `${base}/students/:id`
 });
 
 /***/ }),
@@ -335,6 +376,9 @@ const base = '/api';
 /*!   export /students [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export get [provided] [no usage info] [missing usage info prevents renaming] */
 /*!       export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export produces [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
 /*!       export responses [provided] [no usage info] [missing usage info prevents renaming] */
 /*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export content [provided] [no usage info] [missing usage info prevents renaming] */
@@ -377,6 +421,160 @@ const base = '/api';
 /*!             other exports [not provided] [no usage info] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
+/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export summary [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       other exports [not provided] [no usage info] */
+/*!     export post [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export consumes [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export parameters [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export in [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export schema [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             export properties [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export avatar [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export format [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export dob [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export format [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export performance [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export maximum [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export minimum [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               other exports [not provided] [no usage info] */
+/*!             export required [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 1 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 2 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               other exports [not provided] [no usage info] */
+/*!             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             other exports [not provided] [no usage info] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export produces [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export responses [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export content [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             export application/json [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export schema [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export properties [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                   export avatar [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     other exports [not provided] [no usage info] */
+/*!                   export dob [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     other exports [not provided] [no usage info] */
+/*!                   export id [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     other exports [not provided] [no usage info] */
+/*!                   export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     other exports [not provided] [no usage info] */
+/*!                   export performance [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                     other exports [not provided] [no usage info] */
+/*!                   other exports [not provided] [no usage info] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               other exports [not provided] [no usage info] */
+/*!             other exports [not provided] [no usage info] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export summary [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       other exports [not provided] [no usage info] */
+/*!     export put [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export consumes [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export parameters [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export in [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export schema [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             export properties [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export avatar [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export format [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export dob [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export format [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export id [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export maxLength [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export minLength [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               export performance [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export maximum [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export minimum [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!                 other exports [not provided] [no usage info] */
+/*!               other exports [not provided] [no usage info] */
+/*!             export required [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 1 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 2 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               export 3 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!               other exports [not provided] [no usage info] */
+/*!             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             other exports [not provided] [no usage info] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export responses [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export summary [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       other exports [not provided] [no usage info] */
+/*!     other exports [not provided] [no usage info] */
+/*!   export /students/{id} [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export delete [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export parameters [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export in [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export name [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export required [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export schema [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             export type [provided] [no usage info] [missing usage info prevents renaming] */
+/*!             other exports [not provided] [no usage info] */
+/*!           other exports [not provided] [no usage info] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export responses [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
+/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!           other exports [not provided] [no usage info] */
 /*!         other exports [not provided] [no usage info] */
 /*!       export summary [provided] [no usage info] [missing usage info prevents renaming] */
 /*!       other exports [not provided] [no usage info] */
@@ -393,7 +591,7 @@ const base = '/api';
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a list of grades and all students in the grade.\",\"responses\":{\"200\":{\"description\":\"A JSON array of grades including arrays of student objects\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}}}}}}}");
+module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a sorted list of grades with sorted by names lists of students.\",\"produces\":[\"application/json\"],\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON array of grades including arrays of student objects.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}},\"500\":{\"description\":\"Failure. Returns empty body.\"}}},\"post\":{\"summary\":\"Creates a new student.\",\"consumes\":[\"application/json\"],\"produces\":[\"application/json\"],\"parameters\":[{\"in\":\"body\",\"name\":\"Student\",\"description\":\"The student with the specified id will be created.\",\"schema\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"name\",\"dob\",\"performance\"]}}],\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON object of the newly created student.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}}}},\"500\":{\"description\":\"Failure. Returns empty body.\"}}},\"put\":{\"summary\":\"Edits a student.\",\"consumes\":[\"application/json\"],\"parameters\":[{\"in\":\"body\",\"name\":\"Student\",\"description\":\"The student with the specified id will be edited.\",\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":24,\"maxLength\":24},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"id\",\"name\",\"dob\",\"performance\"]}}],\"responses\":{\"200\":{\"description\":\"Success. Returns empty body.\"},\"500\":{\"description\":\"Failure. Returns empty body.\"}}}},\"/students/{id}\":{\"delete\":{\"summary\":\"Deletes a student.\",\"parameters\":[{\"in\":\"path\",\"name\":\"id\",\"schema\":{\"type\":\"string\"},\"required\":true,\"description\":\"ID of the student to delete.\"}],\"responses\":{\"200\":{\"description\":\"Success. Returns empty body.\"},\"500\":{\"description\":\"Failure. Returns empty body.\"}}}}}}");
 
 /***/ }),
 

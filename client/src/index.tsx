@@ -13,15 +13,13 @@ function Main() {
     jssStyles?.parentElement?.removeChild(jssStyles)
   }, [])
   return (
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Router>
-            <App />
-          </Router>
-        </Provider >
-      </ThemeProvider>
-    </React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider >
+    </ThemeProvider>
   )
 }
 

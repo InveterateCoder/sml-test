@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction,
   ListItemText, Typography, IconButton
@@ -6,8 +7,10 @@ import {
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons'
 import { Student as StudentType } from '../../store/types'
 import { Performance } from '../../store/types'
+import { deleteStudent } from '../../store/actions'
 
 function Student({ student }: { student: StudentType }) {
+  const dispatch = useDispatch()
   return (
     <ListItem>
       <ListItemAvatar>
@@ -25,6 +28,7 @@ function Student({ student }: { student: StudentType }) {
       <ListItemSecondaryAction>
         <IconButton
           color="secondary"
+          onClick={() => dispatch(deleteStudent(student.id))}
         >
           <DeleteIcon />
         </IconButton>
