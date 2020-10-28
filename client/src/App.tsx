@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import { Store } from '../../store/types'
 import Students from './Students'
 import Add from './Add'
-import { setError, loadStudents } from '../../store/actions'
+import { setError, loadStudents, loadStudentsStoreAction } from '../../store/actions'
 
 const useStyles = makeStyles(theme => ({
   error: {
@@ -21,10 +21,7 @@ function App() {
   const error = useSelector((state: Store) => state.error)
   const dispatch = useDispatch()
   const classes = useStyles()
-
-  useEffect(() => {
-    dispatch(loadStudents())
-  }, [])
+  
   return (
     <>
       <CssBaseline />
