@@ -4,20 +4,6 @@ import { Button, ButtonGroup, Container, Typography } from '@material-ui/core'
 import Form from './Form'
 import { Grade, Performance } from '../../store/types'
 
-function formatDateToString(date: Date | undefined): string {
-  if (!date) return ''
-  let month = (date.getMonth() + 1).toString(),
-    day = date.getDate().toString(),
-    year = date.getFullYear();
-
-  if (month.length < 2)
-    month = '0' + month;
-  if (day.length < 2)
-    day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
 function Add() {
   const [student, setStudent] = useState({
     name: '',
@@ -26,17 +12,21 @@ function Add() {
     performance: Performance.Уд
   })
 
+  const [nameErr, setNameError] = useState('')
+
   const onFormChange = (ev: BaseSyntheticEvent) => {
-    if (ev.target.name === 'dob') {
-      setStudent({
-        ...student,
-        dob: new Date(ev.target.value)
-      })
-    } else {
-      setStudent({
-        ...student,
-        [ev.target.name]: ev.target.value
-      })
+    if (ev.target.name === 'name' && nameErr) {
+      setNameError('')
+    }
+    setStudent({
+      ...student,
+      [ev.target.name]: ev.target.value
+    })
+  }
+
+  const saveStudent = () => {
+    if (student.name.length < 8) {
+      setNameError('Name must be minimum 8 characters long.')
     }
   }
 
@@ -46,10 +36,11 @@ function Add() {
       <br />
       <Form
         name={student.name}
-        dob={formatDateToString(student.dob)}
+        dob={student.dob}
         grade={student.grade}
         performance={student.performance}
         onChange={onFormChange}
+        nameErr={nameErr}
       />
       <br />
       <div style={{ textAlign: 'center' }}>
@@ -61,7 +52,12 @@ function Add() {
           >
             Cancel
           </Button>
-          <Button style={{ width: 90 }}>Save</Button>
+          <Button
+            style={{ width: 90 }}
+            onClick={saveStudent}
+          >
+            Save
+          </Button>
         </ButtonGroup>
       </div>
     </Container>

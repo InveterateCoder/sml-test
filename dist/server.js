@@ -206,6 +206,7 @@ const StudentSchema = new mongoose__WEBPACK_IMPORTED_MODULE_0__.Schema({
   name: {
     type: String,
     required: [true, "Must provide the student's full name"],
+    minlength: [8, "Minimum name's length is 8."],
     index: true
   },
   dob: {

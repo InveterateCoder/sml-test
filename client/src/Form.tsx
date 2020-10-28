@@ -4,6 +4,18 @@ import {
 } from '@material-ui/core'
 import { Performance, Grade } from '../../store/types'
 
+function formatDateToString(date: Date | undefined): string {
+  if (!date) return ''
+  let month = (date.getMonth() + 1).toString(),
+    day = date.getDate().toString(),
+    year = date.getFullYear().toString();
+  month = '0'.repeat(2 - month.length) + month
+  day = '0'.repeat(2 - day.length) + day
+  year = '0'.repeat(4 - year.length) + year
+
+  return [year, month, day].join('-');
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -12,14 +24,26 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Form({ name, dob, grade, performance, onChange }: {
+function Form({ name, dob, grade, performance, onChange, nameErr }: {
   name: string | undefined | null,
-  dob: string | undefined | null,
+  dob: Date | undefined,
   grade: number | undefined | null,
   performance: number | undefined | null,
-  onChange: any
+  onChange: any,
+  nameErr: string
 }) {
   const classes = useStyles()
+  const onDateChange = (ev: BaseSyntheticEvent) => {
+    const date = new Date(ev.target.value)
+    if (!Number.isNaN(Number(date))) {
+      onChange({
+        target: {
+          name: ev.target.name,
+          value: date
+        }
+      })
+    }
+  }
   return (
     <div className={classes.root}>
       <TextField
@@ -28,6 +52,8 @@ function Form({ name, dob, grade, performance, onChange }: {
         name="name"
         value={name}
         onChange={onChange}
+        error={Boolean(nameErr)}
+        helperText={nameErr}
       />
       <TextField
         fullWidth
@@ -37,8 +63,8 @@ function Form({ name, dob, grade, performance, onChange }: {
           shrink: true,
         }}
         name="dob"
-        value={dob}
-        onChange={onChange}
+        value={formatDateToString(dob)}
+        onChange={onDateChange}
       />
       <FormControl fullWidth>
         <InputLabel>Grade</InputLabel>

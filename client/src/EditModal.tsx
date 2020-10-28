@@ -5,54 +5,40 @@ import {
   DialogContent, DialogTitle
 } from '@material-ui/core'
 import Form from './Form'
-import { Store } from '../../store/types'
+import { Store, Grade, Performance } from '../../store/types'
 import { closeEdit } from '../../store/actions'
-
-function formatDateToString(date: Date | undefined): string {
-  if (!date) return ''
-  let month = (date.getMonth() + 1).toString(),
-    day = date.getDate().toString(),
-    year = date.getFullYear();
-
-  if (month.length < 2)
-    month = '0' + month;
-  if (day.length < 2)
-    day = '0' + day;
-
-  return [year, month, day].join('-');
-}
 
 function EditModal() {
   const { open, student } = useSelector((state: Store) => state.edit)
   const dispatch = useDispatch()
-  const [studentEdit, setStudentEdit] = useState({
-    name: student?.name,
-    dob: student?.dob,
-    grade: student?.grade,
-    performance: student?.performance
+  const formStudentEdit = () => ({
+    name: student?.name || '',
+    dob: student?.dob || new Date(),
+    grade: student?.grade || Grade.First,
+    performance: student?.performance || Performance.Уд
   })
+  const [studentEdit, setStudentEdit] = useState(formStudentEdit())
   useEffect(() => {
     if (open) {
-      setStudentEdit({
-        name: student?.name,
-        dob: student?.dob,
-        grade: student?.grade,
-        performance: student?.performance
-      })
+      setStudentEdit(formStudentEdit())
     }
   }, [open])
 
+  const [nameErr, setNameErr] = useState('')
+
   const onFormChange = (ev: BaseSyntheticEvent) => {
-    if (ev.target.name === 'dob') {
-      setStudentEdit({
-        ...studentEdit,
-        dob: new Date(ev.target.value)
-      })
-    } else {
-      setStudentEdit({
-        ...studentEdit,
-        [ev.target.name]: ev.target.value
-      })
+    if (ev.target.name === 'name' && nameErr) {
+      setNameErr('')
+    }
+    setStudentEdit({
+      ...studentEdit,
+      [ev.target.name]: ev.target.value
+    })
+  }
+
+  const editStudent = () => {
+    if (studentEdit.name.length < 8) {
+      setNameErr('Name must be minimum 8 characters long.')
     }
   }
 
@@ -62,10 +48,11 @@ function EditModal() {
       <DialogContent>
         <Form
           name={studentEdit.name}
-          dob={formatDateToString(studentEdit.dob)}
+          dob={studentEdit.dob}
           grade={studentEdit.grade}
           performance={studentEdit.performance}
           onChange={onFormChange}
+          nameErr={nameErr}
         />
       </DialogContent>
       <DialogActions style={{ justifyContent: 'center' }}>
@@ -76,7 +63,12 @@ function EditModal() {
           >
             Close
           </Button>
-          <Button style={{ width: 90 }}>Save</Button>
+          <Button
+            style={{ width: 90 }}
+            onClick={editStudent}
+          >
+            Save
+          </Button>
         </ButtonGroup>
       </DialogActions>
       <br />
