@@ -6,6 +6,7 @@ import { Grade, Performance } from '../../store/types'
 
 function Add() {
   const [student, setStudent] = useState({
+    avatar: null,
     name: '',
     dob: new Date(),
     grade: Grade.First,

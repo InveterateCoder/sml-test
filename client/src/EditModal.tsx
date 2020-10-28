@@ -12,6 +12,7 @@ function EditModal() {
   const { open, student } = useSelector((state: Store) => state.edit)
   const dispatch = useDispatch()
   const formStudentEdit = () => ({
+    avatar: null,
     name: student?.name || '',
     dob: student?.dob || new Date(),
     grade: student?.grade || Grade.First,

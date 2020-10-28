@@ -1,13 +1,13 @@
 import { Schema, model } from 'mongoose'
 
 const StudentSchema = new Schema({
-  avatar: String,
   name: {
     type: String,
     required: [true, "Must provide the student's full name"],
     minlength: [8, "Minimum name's length is 8."],
     index: true
   },
+  avatar: String,
   dob: {
     type: Date,
     required: [true, "Must provide the student's date of birth"]

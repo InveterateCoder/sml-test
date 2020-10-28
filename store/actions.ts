@@ -59,3 +59,21 @@ export const closeEdit = (): Action => ({
   type: CLOSE_EDIT,
   payload: null
 })
+
+export const CREATE_STUDENT = 'create_student'
+const createStudentStoreAction = (student: Student): Action => ({
+  type: CREATE_STUDENT,
+  payload: student
+})
+export const createStudent = (student: Student) => async (dispatch: Dispatch) => {
+  
+}
+
+export const EDIT_STUDENT = 'edit_student'
+const editStudentStoreAction = (student: Student): Action => ({
+  type: EDIT_STUDENT,
+  payload: student
+})
+export const editStudent = (student: Student) => async (dispatch: Dispatch) => {
+
+}

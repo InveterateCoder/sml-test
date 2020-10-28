@@ -79,39 +79,46 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Student",
-            "description": "The student with the specified id will be created.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
+        "requestBody": {
+          "description": "The student with the specified id will be created.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "grade": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "performance": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 5
+                  }
                 },
-                "avatar": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "dob": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "performance": {
-                  "type": "integer",
-                  "minimum": 2,
-                  "maximum": 5
-                }
-              },
-              "required": [
-                "name",
-                "dob",
-                "performance"
-              ]
+                "required": [
+                  "name",
+                  "dob",
+                  "grade",
+                  "performance"
+                ]
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Success. Returns a JSON object of the newly created student.",
@@ -132,6 +139,9 @@
                     "dob": {
                       "type": "string"
                     },
+                    "grade": {
+                      "type": "integer"
+                    },
                     "performance": {
                       "type": "integer"
                     }
@@ -150,45 +160,54 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Student",
-            "description": "The student with the specified id will be edited.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "minLength": 24,
-                  "maxLength": 24
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "description": "The student with the specified id will be edited.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 24,
+                    "maxLength": 24
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "grade": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "performance": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 5
+                  }
                 },
-                "name": {
-                  "type": "string"
-                },
-                "avatar": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "dob": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "performance": {
-                  "type": "integer",
-                  "minimum": 2,
-                  "maximum": 5
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "dob",
-                "performance"
-              ]
+                "required": [
+                  "name",
+                  "dob",
+                  "grade",
+                  "performance"
+                ]
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Success. Returns empty body."

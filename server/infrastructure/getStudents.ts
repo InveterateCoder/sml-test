@@ -3,7 +3,7 @@ import Student from '../models/StudentModel'
 async function getStudents() {
   const students = (
     await Student.aggregate([
-      { $sort: { firstName: 1, lastName: 1, middleName: 1 } },
+      { $sort: { name: 1 } },
       {
         $group: {
           _id: '$grade',
