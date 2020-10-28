@@ -10,7 +10,7 @@ async function createStudentController(req: Request, res: Response) {
     const studentObj = studentDoc.toObject()
     res.json(Object.assign({ id: studentObj._id }, studentObj, { _id: undefined, __v: undefined }))
   } catch (err) {
-    res.status(500).end()
+    res.status(418).end()
   }
 }
 export default createStudentController

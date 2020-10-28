@@ -32,8 +32,9 @@ const deleteStudentStoreAction = (id: string): Action => ({
   type: DELETE_STUDENT,
   payload: id
 })
-export const deleteStudent = (id: string) => async (dispatch: Dispatch) => {
+export const deleteStudent = (id: string | null | undefined) => async (dispatch: Dispatch) => {
   try {
+    if (!id) throw Error('Something went wrong. Please contact the developer.')
     if (window.confirm('Are you sure you want to delete the student?')) {
       const res = await fetch(routes.delete.replace(':id', id), {
         method: 'DELETE'
@@ -66,14 +67,44 @@ const createStudentStoreAction = (student: Student): Action => ({
   payload: student
 })
 export const createStudent = (student: Student) => async (dispatch: Dispatch) => {
-  
+  try {
+    const res = await fetch(routes.students, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(student)
+    })
+    if (!res.ok) {
+      throw new Error(`Server responded with "${res.statusText}"`)
+    }
+    dispatch(createStudentStoreAction(await res.json()))
+  } catch (err) {
+    dispatch(setError({ message: err.message, open: true }))
+  }
 }
 
-export const EDIT_STUDENT = 'edit_student'
-const editStudentStoreAction = (student: Student): Action => ({
-  type: EDIT_STUDENT,
-  payload: student
+export const UPDATE_STUDENT = 'update_student'
+const updateStudentStoreAction = (data: any): Action => ({
+  type: UPDATE_STUDENT,
+  payload: data
 })
-export const editStudent = (student: Student) => async (dispatch: Dispatch) => {
-
+export const updateStudent = (data: any) => async (dispatch: Dispatch) => {
+  try {
+    const res = await fetch(routes.students, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    if (!res.ok) {
+      throw new Error(`Server responded with "${res.statusText}"`)
+    }
+    dispatch(updateStudentStoreAction(data))
+  } catch (err) {
+    dispatch(setError({ message: err.message, open: true }))
+  }
 }

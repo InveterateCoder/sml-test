@@ -66,8 +66,8 @@
               }
             }
           },
-          "500": {
-            "description": "Failure. Returns empty body."
+          "418": {
+            "description": "Failure. Empty body."
           }
         }
       },
@@ -150,8 +150,8 @@
               }
             }
           },
-          "500": {
-            "description": "Failure. Returns empty body."
+          "418": {
+            "description": "Failure. Empty body."
           }
         }
       },
@@ -210,10 +210,10 @@
         },
         "responses": {
           "200": {
-            "description": "Success. Returns empty body."
+            "description": "Success. Empty body."
           },
-          "500": {
-            "description": "Failure. Returns empty body."
+          "418": {
+            "description": "Failure. Empty body."
           }
         }
       }
@@ -234,10 +234,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Success. Returns empty body."
+            "description": "Success. Empty body."
           },
-          "500": {
-            "description": "Failure. Returns empty body."
+          "418": {
+            "description": "Failure. Empty body."
           }
         }
       }

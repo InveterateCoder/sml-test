@@ -10,9 +10,13 @@ export enum Performance {
   Неуд = 2, Уд, Хор, Отл
 }
 
-export interface Student {
-  id: string,
-  avatar: string,
+interface Object {
+  [key: string]: any
+}
+
+export interface Student extends Object {
+  id: string | null | undefined,
+  avatar: string | null | undefined,
   name: string,
   dob: Date,
   grade: Grade,

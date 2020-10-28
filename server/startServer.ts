@@ -31,6 +31,7 @@ async function startServer(application: Express = express()): Promise<void> {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false
     })
     server = app.listen(port, () => console.log(`server started on port ${port}`))
   } catch (err) {

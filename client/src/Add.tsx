@@ -1,12 +1,16 @@
 import React, { BaseSyntheticEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Typography } from '@material-ui/core'
 import Form from './Form'
 import { Grade, Performance } from '../../store/types'
+import { createStudent } from '../../store/actions'
 
-function Add() {
+function Add({ history }: { history: any }) {
+  const dispatch = useDispatch()
   const [student, setStudent] = useState({
-    avatar: null,
+    id: undefined,
+    avatar: undefined,
     name: '',
     dob: new Date(),
     grade: Grade.First,
@@ -28,6 +32,9 @@ function Add() {
   const saveStudent = () => {
     if (student.name.length < 8) {
       setNameError('Name must be minimum 8 characters long.')
+    } else {
+      dispatch(createStudent(student))
+      history.push('/students')
     }
   }
 

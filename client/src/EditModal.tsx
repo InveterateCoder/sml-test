@@ -6,13 +6,15 @@ import {
 } from '@material-ui/core'
 import Form from './Form'
 import { Store, Grade, Performance } from '../../store/types'
-import { closeEdit } from '../../store/actions'
+import { closeEdit, updateStudent } from '../../store/actions'
 
 function EditModal() {
   const { open, student } = useSelector((state: Store) => state.edit)
   const dispatch = useDispatch()
-  const formStudentEdit = () => ({
-    avatar: null,
+  const formStudentEdit = (): {
+    [key: string]: any
+  } => ({
+    avatar: undefined,
     name: student?.name || '',
     dob: student?.dob || new Date(),
     grade: student?.grade || Grade.First,
@@ -40,6 +42,21 @@ function EditModal() {
   const editStudent = () => {
     if (studentEdit.name.length < 8) {
       setNameErr('Name must be minimum 8 characters long.')
+    } else {
+      const data: any = {}
+      if (student && student.id) {
+        let len = 0
+        for (let key in studentEdit) {
+          if (studentEdit[key] !== student[key]) {
+            data[key] = studentEdit[key]
+            len++
+          }
+        }
+        if (len > 0) {
+          data.id = student.id
+          dispatch(updateStudent(data))
+        }
+      }
     }
   }
 

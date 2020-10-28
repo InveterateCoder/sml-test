@@ -45,7 +45,7 @@ async function createStudentController(req, res) {
       __v: undefined
     }));
   } catch (err) {
-    res.status(500).end();
+    res.status(418).end();
   }
 }
 
@@ -81,7 +81,7 @@ async function deleteStudentController(req, res) {
     });
     res.end();
   } catch (err) {
-    res.status(500).end();
+    res.status(418).end();
   }
 }
 
@@ -112,7 +112,7 @@ async function getStudentsController(req, res) {
     const students = await (0,_infrastructure_getStudents__WEBPACK_IMPORTED_MODULE_0__.default)();
     res.json(students);
   } catch (err) {
-    res.status(500).end();
+    res.status(418).end();
   }
 }
 
@@ -147,6 +147,59 @@ async function renderController(req, res) {
 
 /***/ }),
 
+/***/ "./server/controllers/updateStudentController.ts":
+/*!*******************************************************!*\
+  !*** ./server/controllers/updateStudentController.ts ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/StudentModel */ "./server/models/StudentModel.ts");
+
+
+async function updateStudentController(req, res) {
+  try {
+    const {
+      id,
+      name,
+      avatar,
+      dob,
+      grade,
+      performance
+    } = req.body;
+    if (!id) throw new Error('Student ID is required.');
+    const update = {
+      name,
+      avatar,
+      dob,
+      grade,
+      performance
+    };
+
+    for (let key in update) {
+      if (!update[key]) delete update[key];
+    }
+
+    if (Object.keys(update).length === 0) throw new Error('No update field is specified.');
+    await _models_StudentModel__WEBPACK_IMPORTED_MODULE_0__.default.findByIdAndUpdate(id, update).exec();
+    res.end();
+  } catch (err) {
+    res.status(418).end();
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (updateStudentController);
+
+/***/ }),
+
 /***/ "./server/infrastructure/apiRoutes.ts":
 /*!********************************************!*\
   !*** ./server/infrastructure/apiRoutes.ts ***!
@@ -167,7 +220,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/routes */ "./shared/routes.ts");
 /* harmony import */ var _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../controllers/getStudentsController */ "./server/controllers/getStudentsController.ts");
 /* harmony import */ var _controllers_createStudentController__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/createStudentController */ "./server/controllers/createStudentController.ts");
-/* harmony import */ var _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/deleteStudentController */ "./server/controllers/deleteStudentController.ts");
+/* harmony import */ var _controllers_updateStudentController__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../controllers/updateStudentController */ "./server/controllers/updateStudentController.ts");
+/* harmony import */ var _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../controllers/deleteStudentController */ "./server/controllers/deleteStudentController.ts");
+
 
 
 
@@ -176,7 +231,8 @@ __webpack_require__.r(__webpack_exports__);
 const api = (0,express__WEBPACK_IMPORTED_MODULE_0__.Router)();
 api.get(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controllers_getStudentsController__WEBPACK_IMPORTED_MODULE_2__.default);
 api.post(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controllers_createStudentController__WEBPACK_IMPORTED_MODULE_3__.default);
-api.delete(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.delete, _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_4__.default);
+api.put(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.students, _controllers_updateStudentController__WEBPACK_IMPORTED_MODULE_4__.default);
+api.delete(_shared_routes__WEBPACK_IMPORTED_MODULE_1__.default.delete, _controllers_deleteStudentController__WEBPACK_IMPORTED_MODULE_5__.default);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (api);
 
 /***/ }),
@@ -372,7 +428,8 @@ async function startServer(application = express__WEBPACK_IMPORTED_MODULE_3___de
     await (0,mongoose__WEBPACK_IMPORTED_MODULE_4__.connect)(DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
+      useFindAndModify: false
     });
     server = app.listen(port, () => console.log(`server started on port ${port}`));
   } catch (err) {
@@ -405,7 +462,6 @@ __webpack_require__.r(__webpack_exports__);
 const base = '/api';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   students: `${base}/students`,
-  edit: `${base}/students`,
   delete: `${base}/students/:id`
 });
 
@@ -476,7 +532,7 @@ const base = '/api';
 /*!             other exports [not provided] [no usage info] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
-/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 418 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
 /*!         other exports [not provided] [no usage info] */
@@ -560,7 +616,7 @@ const base = '/api';
 /*!             other exports [not provided] [no usage info] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
-/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 418 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
 /*!         other exports [not provided] [no usage info] */
@@ -622,7 +678,7 @@ const base = '/api';
 /*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
-/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 418 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
 /*!         other exports [not provided] [no usage info] */
@@ -646,7 +702,7 @@ const base = '/api';
 /*!         export 200 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
-/*!         export 500 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export 418 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!           other exports [not provided] [no usage info] */
 /*!         other exports [not provided] [no usage info] */
@@ -665,7 +721,7 @@ const base = '/api';
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a sorted list of grades with sorted by names lists of students.\",\"produces\":[\"application/json\"],\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON array of grades including arrays of student objects.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}},\"500\":{\"description\":\"Failure. Returns empty body.\"}}},\"post\":{\"summary\":\"Creates a new student.\",\"consumes\":[\"application/json\"],\"produces\":[\"application/json\"],\"requestBody\":{\"description\":\"The student with the specified id will be created.\",\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"grade\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":5},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"name\",\"dob\",\"grade\",\"performance\"]}}}},\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON object of the newly created student.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"grade\":{\"type\":\"integer\"},\"performance\":{\"type\":\"integer\"}}}}}},\"500\":{\"description\":\"Failure. Returns empty body.\"}}},\"put\":{\"summary\":\"Edits a student.\",\"consumes\":[\"application/json\"],\"produces\":[\"application/json\"],\"requestBody\":{\"description\":\"The student with the specified id will be edited.\",\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":24,\"maxLength\":24},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"grade\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":5},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"name\",\"dob\",\"grade\",\"performance\"]}}}},\"responses\":{\"200\":{\"description\":\"Success. Returns empty body.\"},\"500\":{\"description\":\"Failure. Returns empty body.\"}}}},\"/students/{id}\":{\"delete\":{\"summary\":\"Deletes a student.\",\"parameters\":[{\"in\":\"path\",\"name\":\"id\",\"schema\":{\"type\":\"string\"},\"required\":true,\"description\":\"ID of the student to delete.\"}],\"responses\":{\"200\":{\"description\":\"Success. Returns empty body.\"},\"500\":{\"description\":\"Failure. Returns empty body.\"}}}}}}");
+module.exports = JSON.parse("{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Test App\",\"description\":\"Test app for Soft Media Lab.\",\"version\":\"1.0.0\",\"contact\":{\"name\":\"Arthur Grigoryan\",\"url\":\"https://inveteratecoder.github.io/\",\"email\":\"inveterate.coder@gmail.com\"}},\"servers\":[{\"url\":\"/api\",\"description\":\"api gateway\"}],\"paths\":{\"/students\":{\"get\":{\"summary\":\"Returns grades and students.\",\"description\":\"Returns a sorted list of grades with sorted by names lists of students.\",\"produces\":[\"application/json\"],\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON array of grades including arrays of student objects.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"students\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"performance\":{\"type\":\"integer\"}}}},\"grade\":{\"type\":\"integer\"}}}}}}},\"418\":{\"description\":\"Failure. Empty body.\"}}},\"post\":{\"summary\":\"Creates a new student.\",\"consumes\":[\"application/json\"],\"produces\":[\"application/json\"],\"requestBody\":{\"description\":\"The student with the specified id will be created.\",\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"grade\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":5},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"name\",\"dob\",\"grade\",\"performance\"]}}}},\"responses\":{\"200\":{\"description\":\"Success. Returns a JSON object of the newly created student.\",\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\"},\"dob\":{\"type\":\"string\"},\"grade\":{\"type\":\"integer\"},\"performance\":{\"type\":\"integer\"}}}}}},\"418\":{\"description\":\"Failure. Empty body.\"}}},\"put\":{\"summary\":\"Edits a student.\",\"consumes\":[\"application/json\"],\"produces\":[\"application/json\"],\"requestBody\":{\"description\":\"The student with the specified id will be edited.\",\"required\":true,\"content\":{\"application/json\":{\"schema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":24,\"maxLength\":24},\"name\":{\"type\":\"string\"},\"avatar\":{\"type\":\"string\",\"format\":\"uri\"},\"dob\":{\"type\":\"string\",\"format\":\"date-time\"},\"grade\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":5},\"performance\":{\"type\":\"integer\",\"minimum\":2,\"maximum\":5}},\"required\":[\"name\",\"dob\",\"grade\",\"performance\"]}}}},\"responses\":{\"200\":{\"description\":\"Success. Empty body.\"},\"418\":{\"description\":\"Failure. Empty body.\"}}}},\"/students/{id}\":{\"delete\":{\"summary\":\"Deletes a student.\",\"parameters\":[{\"in\":\"path\",\"name\":\"id\",\"schema\":{\"type\":\"string\"},\"required\":true,\"description\":\"ID of the student to delete.\"}],\"responses\":{\"200\":{\"description\":\"Success. Empty body.\"},\"418\":{\"description\":\"Failure. Empty body.\"}}}}}}");
 
 /***/ }),
 

@@ -7,7 +7,7 @@ async function deleteStudentController(req: Request, res: Response) {
     await Student.deleteOne({ _id: id })
     res.end()
   } catch (err) {
-    res.status(500).end()
+    res.status(418).end()
   }
 }
 

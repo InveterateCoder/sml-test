@@ -14,7 +14,7 @@ function Student({ student }: { student: StudentType }) {
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar src={student.avatar} />
+        <Avatar src={student.avatar || undefined} />
       </ListItemAvatar>
       <ListItemText primary={student.name} secondary={
         <>
