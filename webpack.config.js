@@ -37,7 +37,7 @@ function getModuleOption(client = false) {
 }
 
 module.exports = env => {
-  const NODE_ENV = env?.production ? 'production' : 'development'
+  const NODE_ENV = (env && env.production) ? 'production' : 'development'
 
   console.log(`compiling in ${NODE_ENV} mode...`)
 
@@ -46,7 +46,7 @@ module.exports = env => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
     },
-    devtool: NODE_ENV === 'production' ? undefined : 'source-map',
+    devtool: NODE_ENV === 'production' ? 'cheap-source-map' : 'source-map',
   }
 
   const entry = {

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { CssBaseline, makeStyles, Slide, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close'
+import { ThemeProvider } from '@material-ui/core'
+import theme from './theme'
 import { Store } from '../../store/types'
 import Students from './Students'
 import Add from './Add'
-import { setError, loadStudents, loadStudentsStoreAction } from '../../store/actions'
+import { setError } from '../../store/actions'
 
 const useStyles = makeStyles(theme => ({
   error: {
@@ -21,9 +23,9 @@ function App() {
   const error = useSelector((state: Store) => state.error)
   const dispatch = useDispatch()
   const classes = useStyles()
-  
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Switch>
         <Route path="/students" exact component={Students} />
@@ -48,7 +50,7 @@ function App() {
           </IconButton>
         )}
       />
-    </>
+    </ThemeProvider>
   );
 }
 
