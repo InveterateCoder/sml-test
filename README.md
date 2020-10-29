@@ -11,7 +11,7 @@ Test for Soft Media Lab
 ___
 #### 2. docker
   1. you must have Docker and docker-compose installed on your platform
-  1. run 'docker-compose up -d'
+  1. run ```docker-compose up -d```
   1. (**optional**) populate database with the initial set by going to http://localhost:8000/populate
 
 URL
