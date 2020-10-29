@@ -2,6 +2,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import dotenvExpand from 'dotenv-expand'
 import express, { Express } from 'express'
+import helmet from 'helmet'
 import { connect } from 'mongoose'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger.json'
@@ -20,6 +21,16 @@ async function startServer(application: Express = express()): Promise<void> {
   let server = null
   try {
     app
+      .use(helmet.dnsPrefetchControl())
+      .use(helmet.expectCt())
+      .use(helmet.frameguard())
+      .use(helmet.hidePoweredBy())
+      .use(helmet.hsts())
+      .use(helmet.ieNoOpen())
+      .use(helmet.noSniff())
+      .use(helmet.permittedCrossDomainPolicies())
+      .use(helmet.referrerPolicy())
+      .use(helmet.xssFilter())
       .use(express.static(path.resolve(__dirname, 'public')))
       .use(express.json())
       .use(express.urlencoded({ extended: true }))

@@ -8,10 +8,10 @@ import { loadStudents, loadStudentsStoreAction } from '../../store/actions'
 
 if (window.__SCHOOL__) {
   store.dispatch(loadStudentsStoreAction(window.__SCHOOL__))
-  delete window.__SCHOOL__
 } else {
   store.dispatch(loadStudents())
 }
+delete window.__SCHOOL__
 const scriptServer = document.querySelector('#script-server-side')
 scriptServer?.parentElement?.removeChild(scriptServer)
 const jssStyles = document.querySelector('#jss-server-side')
