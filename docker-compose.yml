@@ -5,7 +5,7 @@ services:
     container_name: mongodb
     ports: 
       - "27017:27017"
-  sml-test:
+  arthur:
     build: .
     command: node ./dist/server.js
     depends_on:

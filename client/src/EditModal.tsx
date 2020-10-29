@@ -14,7 +14,7 @@ function EditModal() {
   const formStudentEdit = (): {
     [key: string]: any
   } => ({
-    avatar: undefined,
+    avatar: student?.avatar,
     name: student?.name || '',
     dob: student?.dob || new Date(),
     grade: student?.grade || Grade.First,
