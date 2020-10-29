@@ -33,3 +33,5 @@ ___
 ___
 
 ### Description
+
+> Webapp is buld with SSR (server side rendering) support. Stack used: react/redux, redux-thunk, express, mongoose. Logic for adding new students to the store and editing students is implemented manually in the store reducer which mimics the database's group and sort algorithms. Students are sorted by the grade and the names.
