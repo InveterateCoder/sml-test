@@ -17,17 +17,17 @@ ___
 
 ### URLs
 
-> Home
->>  http://localhost:8000/students
+**Home**
+  * http://localhost:8000/students
 
->> Add Student
->>  http://localhost:8000/add
+**Add Student**
+  * http://localhost:8000/add
 
-> Populate DB with initial dummy entities
->>  http://localhost:8000/populate
+**Populate DB with initial dummy entities**
+  * http://localhost:8000/populate
 
-> API Documentations with Swagger
->>  http://localhost:8000/api-docs
+**API Documentations with Swagger**
+  * http://localhost:8000/api-docs
 
 
 ### Description
