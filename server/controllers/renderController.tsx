@@ -13,8 +13,11 @@ async function renderController(req: Request, res: Response): Promise<void> {
   try {
     const sheets = new ServerStyleSheets()
     const context: any = {}
-    const school = await getStudents()
-    store.dispatch(loadStudentsStoreAction(school))
+    let school = null;
+    if (req.url === '/students') {
+      school = await getStudents()
+      store.dispatch(loadStudentsStoreAction(school))
+    }
     const html = renderToString(sheets.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={context}>

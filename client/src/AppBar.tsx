@@ -1,27 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-  AppBar as AppBarUI, IconButton, makeStyles, Toolbar,
+  AppBar as AppBarUI, IconButton, Toolbar,
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import AddIcon from '@material-ui/icons/Add'
 
-const useStyles = makeStyles(() => ({
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-  },
-  grow: {
-    flexGrow: 1,
-  }
-}))
-
 function AppBar() {
-  const classes = useStyles()
   return (
-    <AppBarUI position="fixed" className={classes.appBar}>
+    <AppBarUI position="fixed" style={{ top: 'auto', bottom: 0 }}>
       <Toolbar>
-        <div className={classes.grow}></div>
+        <div style={{ flexGrow: 1 }}></div>
         <IconButton color="inherit">
           <SearchIcon />
         </IconButton>

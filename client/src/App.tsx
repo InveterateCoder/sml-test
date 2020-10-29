@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { CssBaseline, makeStyles, Slide, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close'
-import { ThemeProvider } from '@material-ui/core'
-import theme from './theme'
 import { Store } from '../../store/types'
 import Students from './Students'
 import Add from './Add'
@@ -25,7 +23,7 @@ function App() {
   const classes = useStyles()
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
       <Switch>
         <Route path="/students" exact component={Students} />
@@ -50,7 +48,7 @@ function App() {
           </IconButton>
         )}
       />
-    </ThemeProvider>
+    </>
   );
 }
 

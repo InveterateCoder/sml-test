@@ -17,7 +17,11 @@ scriptServer?.parentElement?.removeChild(scriptServer)
 const jssStyles = document.querySelector('#jss-server-side')
 jssStyles?.parentElement?.removeChild(jssStyles)
 
-ReactDOM.render( // hydrate breaks Material UI behavior
+// Material UI SSR when compiled into production doesn't render custom styles made with makeStyles
+// rerendering components fixes the problem, but not recommended for production in that way
+// maybe a slight bug in the Material UI rendering mechanism or a thing I'm missing
+// peculiar, but hydration works when client is compiled with the development mode
+ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App />
