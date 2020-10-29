@@ -1,9 +1,5 @@
-import dotenv from 'dotenv'
-import mongoose from 'mongoose'
-import Student from './StudentModel'
-
-dotenv.config()
-const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/fake_school'
+import { Request, Response } from 'express'
+import Student from '../models/StudentModel'
 
 const students = [
   {
@@ -56,15 +52,14 @@ const students = [
   },
 ]
 
-async function populate() {
+async function populateDBController(req: Request, res: Response) {
   try {
-    await mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     await Student.deleteMany({}).exec()
     await Student.insertMany(students)
-    console.log('success 👍')
-  } finally {
-    await mongoose.disconnect()
+    res.send('success 👍')
+  } catch {
+    res.status(500).send('failed 👎')
   }
 }
 
-populate()
+export default populateDBController

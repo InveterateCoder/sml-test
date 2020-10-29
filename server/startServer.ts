@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger.json'
 import apiRoutes from './infrastructure/apiRoutes'
 import renderController from './controllers/renderController'
+import populateDBController from './controllers/populateDBController'
 
 dotenvExpand(dotenv.config())
 
@@ -25,6 +26,7 @@ async function startServer(application: Express = express()): Promise<void> {
       .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
       .use(apiRoutes)
 
+    app.get('/populate', populateDBController)
     app.get('*', renderController)
 
     await connect(DB_URL, {
