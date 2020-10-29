@@ -1,6 +1,6 @@
 # sml-test
-Test for Soft Media Lab
-[YouTube video description](https://youtu.be/N4ApeMlPlXE)
+Test for Soft Media Lab <br/>
+[Video Description](https://youtu.be/N4ApeMlPlXE)
 
 ### project setup
 
